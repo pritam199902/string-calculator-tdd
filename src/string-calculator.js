@@ -8,15 +8,23 @@ function add(numbers = "") {
 
   // validate for custom delimiter
   if (nums.startsWith("//")) {
-    const firstNewLine = nums.indexOf("\\n");
+    const firstNewLine = nums.indexOf("\n");
 
     if (firstNewLine === -1) {
       throw new Error("Invalid custom delimiter format");
     }
 
     const customDelimiter = nums.substring(2, firstNewLine);
-    nums = nums.substring(firstNewLine + 2);
-    delimiters = new RegExp(`${customDelimiter}`);
+    nums = nums.substring(firstNewLine + 1);
+
+    // special regex characters to make the delimiter as a literal string
+    const escapedDelimiter = customDelimiter.replace(
+      /[.*+?^${}()|[\]\\]/g,
+      "\\$&"
+    );
+
+    // regex pattern for the custom delimiter
+    delimiters = new RegExp(escapedDelimiter, "g");
   }
 
   // split the nums by delimiters

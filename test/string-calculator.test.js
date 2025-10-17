@@ -49,3 +49,30 @@ describe("New lines as delimiters", () => {
     expect(add("10\n20,30\n40")).toBe(100);
   });
 });
+
+describe("Custom delimiters", () => {
+  test('should support custom delimiter - "//;\\n1;2" should return 3', () => {
+    expect(add("//;\n1;2")).toBe(3);
+  });
+
+  test("should support pipe delimiter", () => {
+    expect(add("//|\n1|2|3")).toBe(6);
+  });
+
+  test("should support multi-character delimiter", () => {
+    expect(add("//sep\n2sep3")).toBe(5);
+  });
+
+  test("should support special character delimiters", () => {
+    expect(add("//$\n1$2$3")).toBe(6);
+    expect(add("//@\n10@20")).toBe(30);
+  });
+
+  test("should handle single number with custom delimiter", () => {
+    expect(add("//;\n5")).toBe(5);
+  });
+
+  test("should handle empty string with custom delimiter", () => {
+    expect(add("//;\n")).toBe(0);
+  });
+});
