@@ -1,5 +1,5 @@
 function add(numbers = "") {
-  if (numbers == "") return 0;
+  if (!numbers || numbers?.length == 0) return 0;
 
   let nums = numbers;
 
