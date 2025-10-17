@@ -1,8 +1,10 @@
 function add(numbers = "") {
   if (numbers == "") return 0;
 
+  let nums = numbers;
+
   // delimiters to validate
-  let delimiters = /,|\n/;
+  let delimiters = /,|\\n/;
 
   // split the numbers by delimiters
   let numberArray = numbers.split(delimiters).map(Number);
