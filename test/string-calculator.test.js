@@ -18,3 +18,21 @@ describe("Single number", () => {
     expect(add("100")).toBe(100);
   });
 });
+
+describe("Two numbers", () => {
+  test("should return sum of two comma-separated numbers", () => {
+    expect(add("1,5")).toBe(6);
+    expect(add("10,20")).toBe(30);
+    expect(add("0,5")).toBe(5);
+    expect(add("100,200")).toBe(300);
+  });
+});
+
+describe("Multiple numbers", () => {
+  test("should return sum of any amount of numbers", () => {
+    expect(add("1,2,3")).toBe(6);
+    expect(add("1,2,3,4,5")).toBe(15);
+    expect(add("10,20,30,40")).toBe(100);
+    expect(add("1,1,1,1,1,1,1,1,1,1")).toBe(10);
+  });
+});
