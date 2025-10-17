@@ -36,3 +36,16 @@ describe("Multiple numbers", () => {
     expect(add("1,1,1,1,1,1,1,1,1,1")).toBe(10);
   });
 });
+
+describe("New lines as delimiters", () => {
+  test("should handle new lines between numbers", () => {
+    expect(add("1\n2,3")).toBe(6);
+    expect(add("1\n2\n3")).toBe(6);
+    expect(add("1\n2\n3\n4")).toBe(10);
+  });
+
+  test("should handle mixed commas and newlines", () => {
+    expect(add("1\n2,3\n4")).toBe(10);
+    expect(add("10\n20,30\n40")).toBe(100);
+  });
+});
