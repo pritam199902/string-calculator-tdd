@@ -4,7 +4,7 @@ function add(numbers = "") {
   let nums = numbers;
 
   // delimiters to validate
-  let delimiters = /,|\\n/;
+  let delimiters = /,|\n/;
 
   // validate for custom delimiter
   if (nums.startsWith("//")) {
