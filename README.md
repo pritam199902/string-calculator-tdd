@@ -1,5 +1,9 @@
-## Run the function:
+## Install node modules:
+```
+npm i
+```
 
+## Run the function:
 ```
 node index.js "1,2,3,4,5"
 ```
