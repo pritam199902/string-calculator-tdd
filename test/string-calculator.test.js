@@ -51,7 +51,7 @@ describe("New lines as delimiters", () => {
 });
 
 describe("Custom delimiters", () => {
-  test('should support custom delimiter - "//;\\n1;2" should return 3', () => {
+  test('should support custom delimiter - "//;\n1;2" should return 3', () => {
     expect(add("//;\n1;2")).toBe(3);
   });
 
@@ -74,5 +74,31 @@ describe("Custom delimiters", () => {
 
   test("should handle empty string with custom delimiter", () => {
     expect(add("//;\n")).toBe(0);
+  });
+});
+
+describe("Negative numbers handling", () => {
+  test("should throw exception for single negative number", () => {
+    expect(() => add("1,-2,3")).toThrow("negative numbers not allowed -2");
+  });
+
+  test("should show all negative numbers in exception message separated by commas", () => {
+    expect(() => add("1,-2,-3,4")).toThrow(
+      "negative numbers not allowed -2, -3"
+    );
+  });
+
+  test("should handle all negative numbers", () => {
+    expect(() => add("-1,-2,-3")).toThrow(
+      "negative numbers not allowed -1, -2, -3"
+    );
+  });
+
+  test("should throw for negative numbers with custom delimiter", () => {
+    expect(() => add("//;\n1;-2")).toThrow("negative numbers not allowed -2");
+  });
+
+  test("should throw for negative numbers with new lines", () => {
+    expect(() => add("1\n-2,3")).toThrow("negative numbers not allowed -2");
   });
 });
