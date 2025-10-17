@@ -1,12 +1,14 @@
+function escapeRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function add(numbers = "") {
   if (!numbers || numbers?.length == 0) return 0;
 
   let nums = numbers;
+  let delimiters = [",", "\n"];
 
-  // delimiters to validate
-  let delimiters = /,|\n/;
-
-  // validate for custom delimiter
+  // Check for custom delimiter
   if (nums.startsWith("//")) {
     const firstNewLine = nums.indexOf("\n");
 
@@ -17,18 +19,15 @@ function add(numbers = "") {
     const customDelimiter = nums.substring(2, firstNewLine);
     nums = nums.substring(firstNewLine + 1);
 
-    // special regex characters to make the delimiter as a literal string
-    const escapedDelimiter = customDelimiter.replace(
-      /[.*+?^${}()|[\]\\]/g,
-      "\\$&"
-    );
-
-    // regex pattern for the custom delimiter
-    delimiters = new RegExp(escapedDelimiter, "g");
+    // add custom delimiter
+    delimiters.push(customDelimiter);
   }
 
-  // split the nums by delimiters
-  let numberArray = nums.split(delimiters).map(Number);
+  // create regex from all delimiters
+  const delimiterRegex = new RegExp(delimiters.map(escapeRegex).join("|"), "g");
+
+  // split and convert to numbers
+  const numberArray = nums.split(delimiterRegex).map(Number);
 
   // validate for negative numbers
   const negativeNumbers = numberArray.filter((num) => num < 0);
